@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Your Ultimate Gaming Destination</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --dark-bg: #1a1a1a;
+            --darker-bg: #111111;
+            --card-bg: #222222;
+            --accent-purple: #6f42c1;
+            --accent-blue: #00d1ff;
+            --accent-green: #00ff9d;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --glow: 0 0 10px rgba(111, 66, 193, 0.5);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent-blue);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent-purple);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+            color: var(--text-light);
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-blue);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--darker-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .logo span {
+            color: var(--accent-blue);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-icons div {
+            margin-left: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-icons div:hover {
+            color: var(--accent-blue);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-box {
+            padding: 0.5rem 1rem;
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: var(--border-radius);
+            color: var(--text-light);
+            width: 250px;
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 1001;
+        }
+
+        .search-suggestions.active {
+            display: block;
+        }
+
+        .search-suggestions div {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .search-suggestions div:hover {
+            background-color: #333;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3') center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-gray);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 5rem 0;
+            background-color: var(--darker-bg);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Featured Games Section */
+        .featured-games {
+            padding: 5rem 0;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .game-img {
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .game-rating {
+            color: gold;
+        }
+
+        .game-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Apps Section */
+        .apps {
+            padding: 5rem 0;
+            background-color: var(--darker-bg);
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .app-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #333;
+            border-radius: var(--border-radius);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-details {
+            flex: 1;
+        }
+
+        .app-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* APK Mods Section */
+        .apk-mods {
+            padding: 5rem 0;
+        }
+
+        .mods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .mod-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .mod-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .mod-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .mod-badge {
+            background-color: var(--accent-purple);
+            color: var(--text-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .mod-features {
+            margin: 1rem 0;
+        }
+
+        .mod-features li {
+            margin-bottom: 0.5rem;
+            list-style-type: none;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .mod-features li::before {
+            content: '✓';
+            color: var(--accent-green);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 5rem 0;
+            background-color: var(--darker-bg);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .blog-img {
+            height: 200px;
+            background-color: #333;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: var(--border-radius);
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker-bg);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent-blue);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--darker-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .search-box {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Game<span>Hub</span></a>
+            
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#apps">Apps</a></li>
+                    <li><a href="#mods">APK Mods</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-icons">
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Search games, apps...">
+                    <div class="search-suggestions">
+                        <div>Call of Duty Mobile</div>
+                        <div>Minecraft PE</div>
+                        <div>Pubg Mobile</div>
+                        <div>GTA V Mod</div>
+                    </div>
+                </div>
+                <div class="user-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Discover, Download, Play</h1>
+            <p>Your ultimate destination for games, apps, and mods. Everything you need in one place.</p>
+            <div class="hero-buttons">
+                <a href="#games" class="btn">Explore Games</a>
+                <a href="#mods" class="btn btn-secondary">APK Mods</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Action Games</h3>
+                    <p>Thrilling adventures and battles</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Puzzle Games</h3>
+                    <p>Challenge your mind</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Sports Games</h3>
+                    <p>Realistic sports simulations</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Utility Apps</h3>
+                    <p>Tools to enhance your device</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Games Section -->
+    <section class="featured-games" id="games">
+        <div class="container">
+            <h2 class="section-title">Featured Games</h2>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-gamepad" style="font-size: 3rem; color: #6f42c1;"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Call of Duty Mobile</h3>
+                        <div class="game-meta">
+                            <span class="game-rating">★★★★★</span>
+                            <span>1.2GB</span>
+                        </div>
+                        <p>Experience console-quality gaming on your mobile device.</p>
+                        <div class="game-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#"><i class="far fa-heart"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-dragon" style="font-size: 3rem; color: #00d1ff;"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Genshin Impact</h3>
+                        <div class="game-meta">
+                            <span class="game-rating">★★★★☆</span>
+                            <span>2.4GB</span>
+                        </div>
+                        <p>Explore a vast fantasy world of adventure and magic.</p>
+                        <div class="game-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#"><i class="far fa-heart"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-car" style="font-size: 3rem; color: #00ff9d;"></i>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">Asphalt 9: Legends</h3>
+                        <div class="game-meta">
+                            <span class="game-rating">★★★★★</span>
+                            <span>1.8GB</span>
+                        </div>
+                        <p>Ultimate arcade racing experience with stunning graphics.</p>
+                        <div class="game-actions">
+                            <a href="#" class="btn">Download</a>
+                            <a href="#"><i class="far fa-heart"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Section -->
+    <section class="apps" id="apps">
+        <div class="container">
+            <h2 class="section-title">Popular Apps</h2>
+            <div class="apps-grid">
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fab fa-spotify" style="color: #1ed760;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3 class="app-title">Spotify Premium</h3>
+                        <p>Music and podcasts</p>
+                    </div>
+                    <a href="#" class="btn">Download</a>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fab fa-youtube" style="color: #ff0000;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3 class="app-title">YouTube Vanced</h3>
+                        <p>Ad-free YouTube experience</p>
+                    </div>
+                    <a href="#" class="btn">Download</a>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fas fa-video" style="color: #833ab4;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3 class="app-title">Netflix Mod</h3>
+                        <p>Stream movies and shows</p>
+                    </div>
+                    <a href="#" class="btn">Download</a>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fas fa-photo-video" style="color: #00d1ff;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3 class="app-title">PhotoShop Express</h3>
+                        <p>Photo editing tool</p>
+                    </div>
+                    <a href="#" class="btn">Download</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APK Mods Section -->
+    <section class="apk-mods" id="mods">
+        <div class="container">
+            <h2 class="section-title">Featured APK Mods</h2>
+            <div class="mods-grid">
+                <div class="mod-card">
+                    <div class="mod-header">
+                        <h3>Minecraft PE Mod</h3>
+                        <span class="mod-badge">Unlocked</span>
+                    </div>
+                    <p>Full version with all features unlocked</p>
+                    <ul class="mod-features">
+                        <li>Unlimited resources</li>
+                        <li>All skins unlocked</li>
+                        <li>No ads</li>
+                        <li>Multiplayer enabled</li>
+                    </ul>
+                    <div class="game-actions">
+                        <a href="#" class="btn">Download v1.18</a>
+                        <span>128MB</span>
+                    </div>
+                </div>
+                
+                <div class="mod-card">
+                    <div class="mod-header">
+                        <h3>Pubg Mobile Mod</h3>
+                        <span class="mod-badge">VIP</span>
+                    </div>
+                    <p>Enhanced battle royale experience</p>
+                    <ul class="mod-features">
+                        <li>Aim assistance</li>
+                        <li>Unlimited UC</li>
+                        <li>All skins unlocked</li>
+                        <li>Anti-ban protection</li>
+                    </ul>
+                    <div class="game-actions">
+                        <a href="#" class="btn">Download v1.8</a>
+                        <span>1.6GB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog" id="blog">
+        <div class="container">
+            <h2 class="section-title">Gaming News & Updates</h2>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-img"></div>
+                    <div class="blog-content">
+                        <h3>New GTA VI Trailer Released</h3>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Dec 15, 2023</span>
+                            <span><i class="far fa-comment"></i> 24 Comments</span>
+                        </div>
+                        <p>Rockstar Games has finally released the first trailer for the highly anticipated GTA VI.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-img"></div>
+                    <div class="blog-content">
+                        <h3>Best Android Games of 2023</h3>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Dec 10, 2023</span>
+                            <span><i class="far fa-comment"></i> 32 Comments</span>
+                        </div>
+                        <p>We've rounded up the best mobile games that defined 2023 across various genres.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-img"></div>
+                    <div class="blog-content">
+                        <h3>How to Install APK Mods Safely</h3>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Dec 5, 2023</span>
+                            <span><i class="far fa-comment"></i> 18 Comments</span>
+                        </div>
+                        <p>A comprehensive guide to safely downloading and installing modified APK files.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2 class="section-title">Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest game updates, app releases, and exclusive content.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                <button type="submit" class="btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>GameHub</h3>
+                    <p>Your ultimate destination for games, apps, and mods. Everything you need in one place.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#games">Games</a></li>
+                        <li><a href="#apps">Apps</a></li>
+                        <li><a href="#mods">APK Mods</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Action Games</a></li>
+                        <li><a href="#">Puzzle Games</a></li>
+                        <li><a href="#">Sports Games</a></li>
+                        <li><a href="#">Utility Apps</a></li>
+                        <li><a href="#">Entertainment</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Gaming Street, City</li>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> support@gamehub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 GameHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Search functionality
+        const searchBox = document.querySelector('.search-box');
+        const searchSuggestions = document.querySelector('.search-suggestions');
+        
+        searchBox.addEventListener('focus', () => {
+            searchSuggestions.classList.add('active');
+        });
+        
+        searchBox.addEventListener('blur', () => {
+            setTimeout(() => {
+                searchSuggestions.classList.remove('active');
+            }, 200);
+        });
+        
+        // Add to favorites
+        const favoriteIcons = document.querySelectorAll('.fa-heart');
+        
+        favoriteIcons.forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+                icon.style.color = icon.classList.contains('fas') ? '#ff5252' : '';
+            });
+        });
+        
+        // Newsletter form validation
+        const newsletterForm = document.querySelector('.newsletter-form');
+        
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input').value;
+            
+            if (validateEmail(email)) {
+                alert('Thanks for subscribing to our newsletter!');
+                newsletterForm.reset();
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Dark mode toggle
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        const body = document.body;
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            darkModeToggle.innerHTML = body.classList.contains('light-mode') ? 
+                '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        });
+        
+        // Initialize with some games in cart
+        document.querySelector('.cart-icon').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Your cart is empty. Start adding some games!');
+        });
+    </script>
+</body>
+</html>
